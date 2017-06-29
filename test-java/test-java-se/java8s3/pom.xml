@@ -1,25 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>test-java</artifactId>
+        <artifactId>test-java-se</artifactId>
         <groupId>org.training</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>test-java-se</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>java8s3</artifactId>
+    <packaging>jar</packaging>
 
-    <name>test-java-se</name>
+    <name>java8s3</name>
     <url>http://maven.apache.org</url>
-    <modules>
-        <module>java8s3</module>
-        <module>java8s4</module>
-    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <air.main.basedir>${project.parent.basedir}/..</air.main.basedir>
+        <air.main.basedir>${project.parent.basedir}/../..</air.main.basedir>
     </properties>
 
     <dependencies>
