@@ -14,6 +14,8 @@ public class DateFormatDemo {
         System.out.println(f1.format(new Date()));
 
         SimpleDateFormat f2 = new SimpleDateFormat("yyyy/MM/dd");
+
+        System.out.println(f2.format(new Date()));
         f2.applyPattern("MM-dd-yyyy");
         System.out.println(f2.format(new Date()));
     }

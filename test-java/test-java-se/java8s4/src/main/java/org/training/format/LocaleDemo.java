@@ -13,5 +13,11 @@ public class LocaleDemo {
         System.out.println(locale.getLanguage());
         System.out.println(locale.getDisplayCountry());
         System.out.println(locale.getDisplayLanguage());
+
+        Locale locale1 = new Locale("zh", "CN");
+        System.out.println(locale1.getCountry());
+        System.out.println(locale1.getLanguage());
+        System.out.println(locale1.getDisplayCountry());
+        System.out.println(locale1.getDisplayLanguage());
     }
 }

@@ -17,6 +17,7 @@ public class BigDemo {
         System.out.println(d1.multiply(d3));
         //没有scale会报错
         System.out.println(d1.divide(d3, d1.scale()));
+        //3表示操作使用的数字个数， 结果舍入到此精度， RoundingMode对象， 该对象指定舍入使用的算法
         BigDecimal d2 = new BigDecimal("12.36", new MathContext(3, RoundingMode.HALF_UP));
         System.out.println(d2.toPlainString());
 
