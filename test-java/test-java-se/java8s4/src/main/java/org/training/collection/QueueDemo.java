@@ -5,6 +5,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.function.Function;
 
 /**
  * Created by kongyunlong on 2016/10/22.
@@ -28,6 +29,7 @@ public class QueueDemo {
         s1.add("a");
         s1.add("b");
         s1.add("c");
+        // 入队， 在队尾加入元素
         s1.offer("d");
 
         //add,   element, remove在有边界的队列上可能会抛出异常
@@ -38,7 +40,7 @@ public class QueueDemo {
             //element与peek类似
             System.out.println(s1.element());
 //            s1.remove();
-            //获取并删除第一个元素
+            //获取并删除第一个元素， 出队
             s1.poll();
         }
 
@@ -58,7 +60,8 @@ public class QueueDemo {
         while (s2.peek() != null) {
             Person p = s2.peek();
             System.out.println(p.name);
-            s2.remove();
+//            s2.remove();
+            s2.poll();
         }
 
         Queue<Person> s3 = new PriorityQueue<>(Comparator.comparing(Person::getName));
@@ -71,7 +74,9 @@ public class QueueDemo {
             s3.remove();
         }
 
+        Function<Person, String> function = Person::getName;
         System.out.println("---------------------------");
+        //双端队列
         Deque<String> s4 = new LinkedList<>();
         //add与addLast类似，如果链表为空...
         s4.addFirst("");

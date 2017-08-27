@@ -1,8 +1,11 @@
 package org.training.collection;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * Created by kongyunlong on 2016/10/25.
@@ -27,5 +30,15 @@ public class MapDemo {
 
         System.out.println("-----------------");
         m1.forEach((k, v) -> System.out.println(k + "," + v));
+
+        SortedMap<String, String> m2 = new TreeMap<>();
+        // key不能是null
+//        m2.put(null, "");
+        m2.put("abc", null);
+        m2.put("def", null);
+        Map<String, String> m3 = new Hashtable<>();
+        m3.put("abc", "def");
+//        m3.put("def", null);
+        m3.forEach((k, v) -> System.out.println(k + "," + v));
     }
 }

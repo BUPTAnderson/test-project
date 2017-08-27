@@ -1,5 +1,8 @@
 package org.training.collection;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Queue;
 
 /**
@@ -7,27 +10,27 @@ import java.util.Queue;
  */
 public class CollectionDemo {
     public static void main(String[] args) {
-//        Collection<String> c1 = new ArrayList<>();
-//        c1.add("a");
-//        c1.add("b");
-//        c1.add("c");
-//        c1.add("d");
-//        //1.使用Iterator
-//        Iterator<String> iter = c1.iterator();
-//        while (iter.hasNext()) {
-//            System.out.println(iter.next());
-//        }
-//        System.out.println("-------------------");
-//        //使用for each循环
-//        for (String str : c1) {
-//            System.out.println(str);
-//        }
-//        System.out.println("----------str ----------");
-//        //3. 使用forEach方法
-//        //lambda表达式
-//        c1.forEach((String str) -> System.out.println(str));
-//        //方法引用
-//        c1.forEach(System.out::println);
+        Collection<String> c1 = new ArrayList<>();
+        c1.add("a");
+        c1.add("b");
+        c1.add("c");
+        c1.add("d");
+        //1.使用Iterator
+        Iterator<String> iter = c1.iterator();
+        while (iter.hasNext()) {
+            System.out.println(iter.next());
+        }
+        System.out.println("-------------------");
+        //使用for each循环
+        for (String str : c1) {
+            System.out.println(str);
+        }
+        System.out.println("----------str ----------");
+        //3. 使用forEach方法
+        //lambda表达式
+        c1.forEach((String str) -> System.out.println(str));
+        //方法引用
+        c1.forEach(System.out::println);
 
 //        Set<String> set = new HashSet<String>();
 //        set.add(null);

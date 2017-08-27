@@ -10,6 +10,7 @@ import java.util.ListIterator;
 public class ListDemo {
     public static void main(String[] args) {
         List<String> names = new ArrayList<>();
+        // 必须按顺序添加，不能跳跃，可以覆盖之前添加的元素。即不能按0,1,5这样跳跃添加， 可以按0,1,2,1,3添加
         names.add(0, "Tom");
         names.add(1, "Jack");
         //在位置为1的地方加入Rose，之前数据依次向后移动一位，Jack位置变为2
