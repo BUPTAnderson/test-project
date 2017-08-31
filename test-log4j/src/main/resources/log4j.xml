@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+    <!--File 输出-->
+    <appender name="File" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="encoding" value="utf-8" />
+        <param name="File" value="/tmp/file.log" />
+        <param name="Append" value="true" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <param name="MaxBackupIndex" value="15" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss,SSS} %l %t %p - %m%n" />
+        </layout>
+    </appender>
+    <!--控制台的输出 -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss,SSS} %l %t %p - %m%n" />
+        </layout>
+    </appender>
+
+    <!-- bdp日志采集路径 -->
+    <appender name="apiCall" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="encoding" value="utf-8" />
+        <param name="File" value="/tmp/api-call.log" />
+        <param name="Append" value="true" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH-mm" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n" />
+        </layout>
+    </appender>
+
+    <!--<appender name="apiCall" class="org.apache.log4j.RollingFileAppender">-->
+        <!--<param name="encoding" value="utf-8" />-->
+        <!--<param name="File" value="/tmp/api-call.log" />-->
+        <!--<param name="Append" value="true" />-->
+        <!--<param name="MaxFileSize" value="2KB" />-->
+        <!--<param name="MaxBackupIndex" value="3" />-->
+        <!--<layout class="org.apache.log4j.PatternLayout">-->
+            <!--<param name="ConversionPattern" value="%m%n" />-->
+        <!--</layout>-->
+    <!--</appender>-->
+    <!--
+        名字是"apiCallLogger"的log, 比如Logger logger = Logger.getLogger("apiCallLogger"), 会使用apiCall来处理日志.该名称的log可以定义多个,
+        比如在TestLog4j和TestLog中都定义了"apiCallLogger"的log, 则这两个log采集的日志都会使用apiCall来处理, 即会输入到同一个文件中.
+        这里参数additivity="false"是表示该log不会反馈给root, 如果设置为true, 或者不设置该参数<logger name="apiCallLogger">(默认值也是true),
+        则该log的日志同时会输出给root, 由root中的appender来处理, 虽然root的级别设置为ERROR, 但是如果这里additivity="true", 采集到的INFO基本的日志也会反馈给root
+        交给root中的console来处理, 即打印输出.(即虽然root设置的级别是error, 但是反馈的非error的日志也会交给root中的appender来处理)
+    -->
+    <logger name="apiCallLogger" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="apiCall" />
+    </logger>
+
+    <!--
+        root的作用是收集下面所有反馈上来的信息流并根据配置在root中appender进行输出，只要你在looger中配置了additivity="false"，就不会反馈到root中。
+        其它没有特殊指定的输出都会使用root的设置, 比如org.apache.log4j.Logger.TestLog4j的logger2打印的error基本的日志会使用root的设置, 如果日志级别小于error不会交给root中的appender来处理
+    -->
+    <root>
+        <level value="ERROR" />
+        <appender-ref ref="console" />
+    </root>
+</log4j:configuration>

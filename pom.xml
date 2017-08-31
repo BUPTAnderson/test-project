@@ -9,6 +9,7 @@
     <module>test-thrift</module>
     <module>test-jdbc</module>
     <module>test-java</module>
+      <module>test-log4j</module>
   </modules>
   <packaging>pom</packaging>
 

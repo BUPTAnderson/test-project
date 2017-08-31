@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+    <!--File 输出-->
+    <appender name="File" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="encoding" value="utf-8" />
+        <param name="File" value="/tmp/file.log" />
+        <param name="Append" value="true" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <param name="MaxBackupIndex" value="15" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss,SSS} %l %t %p - %m%n" />
+        </layout>
+    </appender>
+    <!--控制台的输出 -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss,SSS} %l %t %p - %m%n" />
+        </layout>
+    </appender>
+
+    <!-- DailyRollingFileAppender按照时间滚动生成日志, 该设置没有MaxFileSize, MaxBackupIndex选项, 即不能根据文件大小生成新的文件, 也不能控制文件数量 -->
+    <appender name="apiCall" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="encoding" value="utf-8" />
+        <!--日志写入的文件名-->
+        <param name="File" value="/tmp/api-call.log" />
+        <!--默认值是true,即启动的时候将消息增加到指定文件中，false指将消息覆盖指定的文件内容。-->
+        <param name="Append" value="true" />
+        <!--滚动生成的文件后缀的格式 比如:api-call.log.2017-08-30 -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <!--写入到文件中的日志的格式 m是指原message, n是指换行-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n" />
+        </layout>
+    </appender>
+
+    <appender name="fileCall" class="org.apache.log4j.RollingFileAppender">
+        <param name="encoding" value="utf-8" />
+        <param name="File" value="/tmp/api-call.log" />
+        <param name="Append" value="true" />
+        <!--日志文件最大大小限制, 超过该大小会滚动生成新的文件-->
+        <param name="MaxFileSize" value="2KB" />
+        <!--最多保留的文件个数, 这里设置为3, 即只会有api-call.log.1,api-call.log.2,api-call.log.3 3个日志文件, 如果产生新的文件, 旧的文件将被删除-->
+        <param name="MaxBackupIndex" value="3" />
+        <!--写入到文件中的日志的格式-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n" />
+        </layout>
+    </appender>
+
+    <!--
+        名字是"apiCallLogger"的log, 比如Logger logger = Logger.getLogger("apiCallLogger"), 会使用apiCall来处理日志.该名称的log可以定义多个,
+        比如在TestLog4j和TestLog中都定义了"apiCallLogger"的log, 则这两个log采集的日志都会使用apiCall来处理, 即会输入到同一个文件中.
+        这里参数additivity="false"是表示该log不会反馈给root, 如果设置为true, 或者不设置该参数<logger name="apiCallLogger">(默认值也是true),
+        则该log的日志同时会输出给root, 由root中的appender来处理, 虽然root的级别设置为ERROR, 但是如果这里additivity="true", 采集到的INFO基本的日志也会反馈给root
+        交给root中的console来处理, 即打印输出.(即虽然root设置的级别是error, 但是反馈的非error的日志也会交给root中的appender来处理)
+    -->
+    <logger name="apiCallLogger" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="apiCall" />
+    </logger>
+
+    <!--
+        该配置与下面的category是类似的, 也是用来控制报或者类的输出, 需要注意的是该由于category初始化的时候会先remove 此Category所包含的appender,
+        如果该配置的appender和category的相同, 可能会报错:log4j:ERROR Attempted to append to closed appender named [File].
+    -->
+    <logger name="org.training.log.TestLogger" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="File" />
+    </logger>
+
+    <!--
+        初始化的时候，在每个Category之前，都会先remove 此Category所包含的appender,如果此Category重复配置，那么appender就会失效
+        category用来处理包或类的输出, 这里包org.training.log里面的日志都使用File和console appender来处理, additivity="false", 不继承rootCategory, 不会反馈给root
+        name="org.training.log"可以换成具体的类, 比如name="org.training.log.TestCategory", 则会控制该类的日志输出, appender-ref可以配置多个
+    -->
+    <category name="org.training.log" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="File" />
+        <appender-ref ref="console" />
+    </category>
+
+    <!--
+        root的作用是收集下面所有反馈上来的信息流并根据配置在root中appender进行输出，只要你在looger中配置了additivity="false"，就不会反馈到root中。
+        其它没有特殊指定的输出都会使用root的设置, 比如org.apache.log4j.Logger.TestLog4j的logger2打印的error基本的日志会使用root的设置, 如果日志级别小于error不会交给root中的appender来处理
+    -->
+    <root>
+        <level value="ERROR" />
+        <appender-ref ref="console" />
+    </root>
+</log4j:configuration>
