@@ -23,6 +23,7 @@ public class StreamDemo2 {
         Stream<String> s3 = Stream.empty();
         IntStream i3 = IntStream.empty();
         System.out.println("-------------------------");
+        // 0是第一个输入, +2后得到结果2, 2继续作为输入+2后得到4继续作为输出, 依次类推, 会得到无数个输出, 如果直接输出, 是一个死循环
         Stream<Long> long1 = Stream.iterate(0L, n -> n + 2);
         long1.limit(10).forEach(System.out::println);
         System.out.println("-------------------------");
