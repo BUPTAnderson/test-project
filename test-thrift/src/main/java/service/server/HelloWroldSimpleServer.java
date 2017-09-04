@@ -1,12 +1,12 @@
 package service.server;
 
-import com.thrift.demo.HelloWorldService;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
 import service.demo.HelloWorldImpl;
+import service.processor.TestProcessor;
 
 /**
  * Created by anderson on 17-6-9.
@@ -28,7 +28,8 @@ public class HelloWroldSimpleServer
             // 简单的单线程服务模型，一般用于测试
             TServerSocket serverTransport = new TServerSocket(SERVER_PORT);
             TServer.Args tArgs = new TServer.Args(serverTransport);
-            TProcessor tprocessor = new HelloWorldService.Processor(new HelloWorldImpl());
+//            TProcessor tprocessor = new HelloWorldService.Processor(new HelloWorldImpl());
+            TProcessor tprocessor = new TestProcessor(new HelloWorldImpl());
             tArgs.processor(tprocessor);
             tArgs.protocolFactory(new TBinaryProtocol.Factory());   // TBinaryProtocol.Factory()
 //             tArgs.protocolFactory(new TCompactProtocol.Factory());
