@@ -33,7 +33,7 @@ public class StreamDemo3
         Stream.of(1, 2, 3, 2, 3, 4, 5).distinct().forEach(System.out::println);
         Stream.of(1, 2, 3, 2, 3, 4, 5).limit(9).forEach(System.out::println);
         // 丢弃前面几个元素
-        Stream.of(1, 2, 3, 2, 3, 4, 5).distinct().skip(2).forEach(System.out::println);
+        Stream.of(1, 1, 2, 3, 2, 3, 4, 5).distinct().skip(2).forEach(System.out::println);
         System.out.println("--------------------------------------------------------");
         // 排序, 默认从小到大，sorted里面可以传入一个比较器
         Stream.of(4, 2, 3, 2, 3, 5, 1).distinct().sorted().forEach(System.out::println);
