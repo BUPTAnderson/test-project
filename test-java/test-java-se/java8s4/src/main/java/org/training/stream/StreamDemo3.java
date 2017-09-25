@@ -32,6 +32,7 @@ public class StreamDemo3
         // 去重
         Stream.of(1, 2, 3, 2, 3, 4, 5).distinct().forEach(System.out::println);
         Stream.of(1, 2, 3, 2, 3, 4, 5).limit(9).forEach(System.out::println);
+        System.out.println("--------------------------------------------------------");
         // 丢弃前面几个元素
         Stream.of(1, 2, 3, 2, 3, 4, 5).distinct().skip(2).forEach(System.out::println);
         System.out.println("--------------------------------------------------------");
