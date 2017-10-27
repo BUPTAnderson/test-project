@@ -15,14 +15,12 @@ public class VolatileTest
     public static AtomicInteger count = new AtomicInteger(0);
 
     public static void inc() {
-
 //      count++;
         count.incrementAndGet();
     }
 
     public static void main(String[] args) throws InterruptedException {
-
-        ExecutorService service= Executors.newFixedThreadPool(Integer.MAX_VALUE);
+        ExecutorService service = Executors.newFixedThreadPool(Integer.MAX_VALUE);
 
         for (int i = 0; i < 10; i++) {
             service.execute(new Runnable() {

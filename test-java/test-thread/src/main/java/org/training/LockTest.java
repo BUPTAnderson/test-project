@@ -32,6 +32,7 @@ class Outputter1 {
             for (int i = 0; i < name.length(); i++) {
                 System.out.print(name.charAt(i));
             }
+            System.out.println();
         } finally {
             lock.unlock(); // 释放锁
         }

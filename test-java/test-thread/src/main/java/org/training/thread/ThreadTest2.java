@@ -16,9 +16,9 @@ public class ThreadTest2
         threadExecute(business, "main");
     }
     public static void threadExecute(Business business, String threadType) {
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             try {
-                if("main".equals(threadType)) {
+                if ("main".equals(threadType)) {
                     business.main(i);
                 } else {
                     business.sub(i);
@@ -32,20 +32,20 @@ public class ThreadTest2
 class Business {
     private boolean bool = true;
     public synchronized void main(int loop) throws InterruptedException {
-        while(bool) {
+        while (bool) {
             this.wait();
         }
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.println("main thread seq of " + i + ", loop of " + loop);
         }
         bool = true;
         this.notify();
     }
     public synchronized void sub(int loop) throws InterruptedException {
-        while(!bool) {
+        while (!bool) {
             this.wait();
         }
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.println("sub thread seq of " + i + ", loop of " + loop);
         }
         bool = false;

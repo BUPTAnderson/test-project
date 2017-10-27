@@ -10,7 +10,8 @@ package org.training.thread;
  * 也就是说volatile只能保证可见性, 不能保证线程安全(保证线程安全需要使用锁的可见行和互斥性)
  */
 class Test {
-    static volatile int i = 0, j = 0;
+    static volatile int i = 0;
+    static volatile int j = 0;
     static void one() {
         try {
             Thread.currentThread().sleep(1000L);

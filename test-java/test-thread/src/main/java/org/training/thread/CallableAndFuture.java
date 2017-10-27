@@ -4,6 +4,8 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by anderson on 17-8-9.
@@ -22,7 +24,15 @@ public class CallableAndFuture
         try {
             Thread.sleep(2000); // 可能做一些事情
             System.out.println(System.currentTimeMillis());
-            System.out.println(future.get());
+            try {
+                Integer result = future.get(1L, TimeUnit.SECONDS);
+                System.out.println(result);
+            }
+            catch (TimeoutException e) {
+                e.printStackTrace();
+                System.out.println("没有拿到结果");
+            }
+
             System.out.println(System.currentTimeMillis());
             Thread.sleep(4000);
             System.out.println(future.get());
