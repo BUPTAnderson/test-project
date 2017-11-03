@@ -1,0 +1,21 @@
+<!DOCTYPE videos[
+        <!ELEMENT videos (video*)>
+        <!ELEMENT video (title, season?)>
+        <!ATTLIST video id ID #REQUIRED>
+        <!ATTLIST video name CDATA #IMPLIED>
+        <!ELEMENT title (#PCDATA)>
+        <!ELEMENT season (#PCDATA)>
+]>
+<anderson:videos xmlns:anderson="http://www.anderson.com">
+    <anderson:video id="v001" name = "abc">
+        <title>学java 8</title>
+        <season>第四季</season>
+    </anderson:video>
+    <anderson:video id="v002" name = "hehe">
+        <title>学 java concurrent</title>
+        <season>第一季</season>
+    </anderson:video>
+    <anderson:video id="v003">
+        <title>学thrift</title>
+    </anderson:video>
+</anderson:videos>
