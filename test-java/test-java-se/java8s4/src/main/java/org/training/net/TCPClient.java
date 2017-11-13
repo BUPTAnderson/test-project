@@ -10,12 +10,16 @@ import java.net.Socket;
 public class TCPClient
 {
     public static void main(String[] args)
-            throws IOException
+            throws IOException, InterruptedException
     {
         Socket socket = new Socket("localhost", 9000);
         OutputStream os = socket.getOutputStream();
         os.write("Hello Java".getBytes());
         os.flush();
+        Thread.currentThread().sleep(30000L);
+        os.write("Hello world".getBytes());
+        os.flush();
         os.close();
+        socket.close();
     }
 }

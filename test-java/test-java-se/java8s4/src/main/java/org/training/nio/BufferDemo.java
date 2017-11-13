@@ -21,13 +21,14 @@ public class BufferDemo
             // put(byte b)放入数据后会使position自增
             b1.put((byte) i);
         }
-        System.out.println(limit);
+        System.out.println(limit + " " + b1.capacity());
+        b1.position(0);
         for (int i = 0; i < limit; i++) {
             System.out.print(b1.position() + " : ");
             // get方法会把位置自增
-//            System.out.println(b1.get());
+            System.out.println(b1.get());
             // 直接指定位置的话对position没有影响, 即position不会变化
-            System.out.println(b1.get(i));
+//            System.out.println(b1.get(i));
         }
     }
 }
