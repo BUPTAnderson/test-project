@@ -37,6 +37,7 @@ public class NonBlockingClient
                 }
             }
         }
+        channel.close();
     }
 
     private static boolean processReadySet(Set<SelectionKey> keys)
@@ -48,12 +49,17 @@ public class NonBlockingClient
             key = iterator.next();
             iterator.remove();
             if (key.isConnectable()) {
+                // a connection was accepted by a ServerSocketChannel.
                 processConnect(key);
             }
+            if (key.isAcceptable()) {
+                // a connection was established with a remote server.
+            }
             if (key.isReadable()) {
-
+                // a channel is ready for reading
             }
             if (key.isWritable()) {
+                // a channel is ready for writing
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
                 processWrite(key, reader.readLine());
@@ -84,8 +90,11 @@ public class NonBlockingClient
     private static void processWrite(SelectionKey key, String msg)
             throws IOException
     {
+        // SelectionKey.channel()方法返回的通道需要转型成你要处理的类型，如ServerSocketChannel或SocketChannel等。
         SocketChannel c = (SocketChannel) key.channel();
         ByteBuffer buffer = ByteBuffer.wrap(msg.getBytes());
-        c.write(buffer);
+        while (buffer.hasRemaining()) {
+            c.write(buffer);
+        }
     }
 }
