@@ -16,6 +16,7 @@ import java.util.Set;
 
 /**
  * Created by anderson on 17-11-7.
+ * 通过NIO实现I/O复用
  */
 public class NonBlockingServer
 {
