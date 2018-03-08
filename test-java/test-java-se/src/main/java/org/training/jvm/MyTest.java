@@ -38,7 +38,7 @@ import java.util.ArrayList;
  -XX:+CMSIncrementalMode:设置为增量模式.适用于单CPU情况.
  -XX:ParallelGCThreads=n:设置并发收集器年轻代收集方式为并行收集时,使用的CPU数.并行收集线程数.
 
------------------------------------
+-----------------es jvm ------------------
 
  "jvm" : {
  "pid" : 3649,
