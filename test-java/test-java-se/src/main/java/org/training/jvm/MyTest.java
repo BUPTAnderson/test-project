@@ -37,8 +37,12 @@ import java.util.ArrayList;
  //并发收集器设置
  -XX:+CMSIncrementalMode:设置为增量模式.适用于单CPU情况.
  -XX:ParallelGCThreads=n:设置并发收集器年轻代收集方式为并行收集时,使用的CPU数.并行收集线程数.
+ -----------------kafka_2.10-0.8.2.1 ------------------
+ -Xmx1G -Xms1G -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true -Xloggc:/export/App/kafka_2.10-0.8.2.1/bin/../logs/kafkaServer-gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port=9999 -Dkafka.logs.dir=/export/App/kafka_2.10-0.8.2.1/bin/../logs -Dlog4j.configuration=file:bin/../config/log4j.properties
 
------------------es jvm ------------------
+ -----------------kafka_2.10-0.8.2.1 ------------------
+ -Xmx1G -Xms1G -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+DisableExplicitGC -Djava.awt.headless=true -Xloggc:/export/App/kafka_2.11-0.10.1.1/bin/../logs/kafkaServer-gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port=9999 -Dkafka.logs.dir=/export/App/kafka_2.11-0.10.1.1/bin/../logs -Dlog4j.configuration=file:bin/../config/log4j.properties
+ -----------------es 5.6.4 jvm ------------------
 
  "jvm" : {
  "pid" : 3649,
