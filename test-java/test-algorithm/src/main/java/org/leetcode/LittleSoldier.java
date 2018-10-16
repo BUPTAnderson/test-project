@@ -22,6 +22,12 @@ public class LittleSoldier {
         return f(n - 1, m) + f(n, m - 1);
     }
 
+    /**
+     * 方法2： 去除冗余，空间换时间
+     * @param n
+     * @param m
+     * @return
+     */
     int f2(int n, int m) {
         if (n == 1 || m == 1) {
             return 1;
@@ -33,6 +39,12 @@ public class LittleSoldier {
         return result[n - 1][m - 1];
     }
 
+    /**
+     * 状态转移方程，自底向上
+     * @param n
+     * @param m
+     * @return
+     */
     int f3(int n, int m) {
         int[][] sum = new int[n][m];
         for (int i = 0; i < n; i++) {
