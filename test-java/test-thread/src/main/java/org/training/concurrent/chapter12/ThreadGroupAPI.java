@@ -1,4 +1,4 @@
-package org.training.concurrency.chapter12;
+package org.training.concurrent.chapter12;
 
 import java.util.Arrays;
 

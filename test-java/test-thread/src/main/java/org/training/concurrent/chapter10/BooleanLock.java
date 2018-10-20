@@ -1,4 +1,4 @@
-package org.training.concurrency.chapter10;
+package org.training.concurrent.chapter10;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 public class BooleanLock implements Lock {
-    // The initValue is true indicated the lock have been getted
+    // The initValue is true indicated the lock have been getted by other thread
     // The initValue is false indicated the lock is free (other thread can get this)
     private boolean initValue;
 
@@ -61,7 +61,7 @@ public class BooleanLock implements Lock {
         if (Thread.currentThread() == currentThread) {
             this.initValue = false;
             Optional.of(Thread.currentThread().getName() + " release the lock monitor.").ifPresent(System.out::println);
-            this.notify();
+            this.notifyAll();
         }
     }
 

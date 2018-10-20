@@ -1,4 +1,4 @@
-package org.training.concurrency.chapter12;
+package org.training.concurrent.chapter12;
 
 public class ThradGroupCreate2 {
     public static void main(String[] args) throws InterruptedException {

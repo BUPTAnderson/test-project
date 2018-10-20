@@ -1,13 +1,13 @@
-package org.training.concurrency.chapter13;
+package org.training.concurrent.chapter13;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SimpleThreadPool {
-    private final int size;
+public class SimpleThreadPool extends Thread {
+    private int size;
     private final int queueSize;
-    private final static int DEFAULT_SIXE = 10;
     private final static int DEFAULT_TASK_QUEUE_SIZE = 2000;
     private static volatile int seq = 0;
     private final static String THREAD_PREFIX = "SIMPLE_THREAD_POOL";
@@ -20,21 +20,29 @@ public class SimpleThreadPool {
     };
     private volatile boolean destroy = false;
 
+    private int min;
+    private int max;
+    private int active;
+
     public SimpleThreadPool() {
-        this(DEFAULT_SIXE, DEFAULT_TASK_QUEUE_SIZE, DEFAULT_DISCARD_POLICY);
+        this(4, 8, 12, DEFAULT_TASK_QUEUE_SIZE, DEFAULT_DISCARD_POLICY);
     }
 
-    public SimpleThreadPool(int size, int queueSize, DiscardPolicy discardPolicy) {
-        this.size = size;
+    public SimpleThreadPool(int min, int active, int max, int queueSize, DiscardPolicy discardPolicy) {
+        this.min = min;
+        this.active = active;
+        this.max = max;
         this.queueSize = queueSize;
         this.discardPolicy = discardPolicy;
         init();
     }
 
     private void init() {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < min; i++) {
             createWorkTask();
         }
+        this.size = min;
+        this.start();
     }
 
     public void submit(Runnable runnable) {
@@ -50,6 +58,51 @@ public class SimpleThreadPool {
             TASK_QUEUE.notifyAll();
         }
     }
+
+    @Override
+    public void run() {
+        while (!destroy) {
+            System.out.printf("Pool# Min: %d, Active: %d, Max: %d, Current: %d, QueueSize: %d\n",
+                    this.min, this.active, this.max, this.size, TASK_QUEUE.size());
+            try {
+                Thread.sleep(5_000L);
+                if (TASK_QUEUE.size() > active && size < active) {
+                    for (int i = size; i < active; i++) {
+                        createWorkTask();
+                    }
+                    System.out.println("The pool increment to active.");
+                    size = active;
+                } else if (TASK_QUEUE.size() > max && size < max) {
+                    for (int i = size; i < max; i++) {
+                        createWorkTask();
+                    }
+                    System.out.println("The pool incremented to max.");
+                    size = max;
+                }
+
+                synchronized (THREAD_QUEUE) {
+                    if (TASK_QUEUE.isEmpty() && size > active) {
+                        System.out.println("=============Reduce=================");
+                        int releaseSize = size - active;
+                        for (Iterator<WorkerTask> it = THREAD_QUEUE.iterator(); it.hasNext(); ) {
+                            if (releaseSize <= 0) {
+                                break;
+                            }
+                            WorkerTask task = it.next();
+                            task.close();
+                            task.interrupt();
+                            it.remove();
+                            releaseSize--;
+                        }
+                        size = active;
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void createWorkTask() {
         WorkerTask task = new WorkerTask(GROUP, THREAD_PREFIX + (seq++));
         task.start();
@@ -61,15 +114,17 @@ public class SimpleThreadPool {
             Thread.sleep(50L);
         }
 
-        int initVal = THREAD_QUEUE.size();
-        while (initVal > 0) {
-            for (WorkerTask task : THREAD_QUEUE) {
-                if (task.getTaskState() == TaskState.BLOCKED) {
-                    task.interrupt();
-                    task.close();
-                    initVal--;
-                } else {
-                    Thread.sleep(10);
+        synchronized (THREAD_QUEUE) {
+            int initVal = THREAD_QUEUE.size();
+            while (initVal > 0) {
+                for (WorkerTask task : THREAD_QUEUE) {
+                    if (task.getTaskState() == TaskState.BLOCKED) {
+                        task.interrupt();
+                        task.close();
+                        initVal--;
+                    } else {
+                        Thread.sleep(10);
+                    }
                 }
             }
         }
@@ -88,6 +143,18 @@ public class SimpleThreadPool {
 
     public boolean isDestroy() {
         return this.destroy;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public int getActive() {
+        return active;
     }
 
     private enum TaskState {
@@ -110,6 +177,7 @@ public class SimpleThreadPool {
         public WorkerTask(ThreadGroup group, String name) {
             super(group, name);
         }
+
         public TaskState getTaskState() {
             return this.taskState;
         }
@@ -125,6 +193,7 @@ public class SimpleThreadPool {
                             taskState = TaskState.BLOCKED;
                             TASK_QUEUE.wait();
                         } catch (InterruptedException e) {
+                            System.out.println("Closed.");
                             break OUTER;
                         }
                     }
@@ -152,7 +221,7 @@ public class SimpleThreadPool {
             threadPool.submit(() -> {
                 System.out.println("The runnable be serviced by" + Thread.currentThread() + " start ...");
                 try {
-                    Thread.sleep(1_000L);
+                    Thread.sleep(3_000L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -160,8 +229,8 @@ public class SimpleThreadPool {
             });
         }
 
-        Thread.sleep(10_000);
+        Thread.sleep(20_000);
         threadPool.shutdown();
-        threadPool.submit(() -> System.out.println("========="));
+//        threadPool.submit(() -> System.out.println("========="));
     }
 }

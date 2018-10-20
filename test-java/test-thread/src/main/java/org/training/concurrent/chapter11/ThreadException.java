@@ -1,4 +1,4 @@
-package org.training.concurrency.chapter11;
+package org.training.concurrent.chapter11;
 
 public class ThreadException {
     private final static int A = 10;

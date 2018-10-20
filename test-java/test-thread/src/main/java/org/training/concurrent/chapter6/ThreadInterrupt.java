@@ -1,4 +1,4 @@
-package org.training.concurrency.chapter6;
+package org.training.concurrent.chapter6;
 
 public class ThreadInterrupt {
     public static final Object MONITOR = new Object();

@@ -1,4 +1,4 @@
-package org.training.concurrency.chapter10;
+package org.training.concurrent.chapter10;
 
 import java.util.Optional;
 import java.util.stream.Stream;

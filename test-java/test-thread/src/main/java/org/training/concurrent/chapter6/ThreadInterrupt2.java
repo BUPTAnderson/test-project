@@ -1,4 +1,4 @@
-package org.training.concurrency.chapter6;
+package org.training.concurrent.chapter6;
 
 public class ThreadInterrupt2 {
     public static void main(String[] args) {

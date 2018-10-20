@@ -1,4 +1,4 @@
-package org.training.concurrency.chapter6;
+package org.training.concurrent.chapter6;
 
 /**
  * 优雅的关闭线程

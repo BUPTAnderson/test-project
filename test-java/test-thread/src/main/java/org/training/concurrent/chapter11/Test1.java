@@ -1,4 +1,4 @@
-package org.training.concurrency.chapter11;
+package org.training.concurrent.chapter11;
 
 public class Test1 {
     private Test2 test2 = new Test2();
