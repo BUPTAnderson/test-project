@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  */
 public class ProducerConsumerVersion2 {
     private int i = 0;
-    final private Object LOCK = new Object();
+    private static final Object LOCK = new Object();
 
     private volatile boolean isProduced = false;
 

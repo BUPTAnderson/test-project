@@ -10,6 +10,9 @@ import service.processor.TestProcessor;
 
 /**
  * Created by anderson on 17-6-9.
+ *
+ * TSimpleServer是单线程阻塞IO的方式，仅用于demo
+ *
  * 对应的client: HelloWorldClient
  * 简单的单线程服务模型, 一般用于测试
  * 可分别测试如下协议:

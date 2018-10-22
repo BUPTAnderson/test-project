@@ -13,7 +13,7 @@ public class BufferDemo
         // allocate是在java虚拟机里面分配
         ByteBuffer b1 = ByteBuffer.allocate(10);
         ByteBuffer b2 = ByteBuffer.wrap(new byte[] {1, 2, 3});
-        // allocateDirect是在操作系统的内存里面分配, 该方法是ByteBuffer独有的
+        // allocateDirect是在操作系统的内存里面分配,即堆外内存 该方法是ByteBuffer独有的
         ByteBuffer b3 = ByteBuffer.allocateDirect(10);
 
         int limit = b1.limit();

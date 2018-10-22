@@ -37,11 +37,67 @@ import java.util.ArrayList;
  //并发收集器设置
  -XX:+CMSIncrementalMode:设置为增量模式.适用于单CPU情况.
  -XX:ParallelGCThreads=n:设置并发收集器年轻代收集方式为并行收集时,使用的CPU数.并行收集线程数.
+
+ -verbose:gc 表示输出虚拟机中GC的详细情况.
+ ------------- hadoop namenode --------------------------
+ NN_JVM_OPTS="$NN_JVM_OPTS -Xmn20g"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:SurvivorRatio=6"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:-UseAdaptiveSizePolicy"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:+UseConcMarkSweepGC"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:ParallelGCThreads=24"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:ConcGCThreads=5"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:+UseCMSInitiatingOccupancyOnly"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:MaxTenuringThreshold=20"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:CMSInitiatingOccupancyFraction=70"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:+PrintGCDetails"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:+PrintGCDateStamps"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:+HeapDumpOnOutOfMemoryError"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:ErrorFile=/data1/hadoop/logs/hadoop-hadoop-namenode-hadoop001-err.log"
+ NN_JVM_OPTS="$NN_JVM_OPTS -XX:HeapDumpPath=/data1/hadoop/logs/hadoop-hadoop-namenode-hadoop001-heap-dump.log"
+ NN_JVM_OPTS="$NN_JVM_OPTS -Xloggc:/data1/hadoop/logs/nn_gc_${time_suffix}"
+ NN_JVM_OPTS="$NN_JVM_OPTS -Dsun.net.inetaddr.ttl=1800"
+
+ export HADOOP_NAMENODE_OPTS="-Xms190G -Xmx190G $NN_JVM_OPTS -Dcom.sun.management.jmxremote -Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_NAMENODE_OPTS"
  -----------------kafka_2.10-0.8.2.1 ------------------
- -Xmx1G -Xms1G -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true -Xloggc:/export/App/kafka_2.10-0.8.2.1/bin/../logs/kafkaServer-gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port=9999 -Dkafka.logs.dir=/export/App/kafka_2.10-0.8.2.1/bin/../logs -Dlog4j.configuration=file:bin/../config/log4j.properties
+ -Xmx1G
+ -Xms1G
+ -XX:+UseParNewGC
+ -XX:+UseConcMarkSweepGC
+ -XX:+CMSClassUnloadingEnabled
+ -XX:+CMSScavengeBeforeRemark
+ -XX:+DisableExplicitGC
+ -Djava.awt.headless=true
+ -Xloggc:/export/App/kafka_2.10-0.8.2.1/bin/../logs/kafkaServer-gc.log
+ -verbose:gc
+ -XX:+PrintGCDetails
+ -XX:+PrintGCDateStamps
+ -XX:+PrintGCTimeStamps
+ -Dcom.sun.management.jmxremote
+ -Dcom.sun.management.jmxremote.authenticate=false
+ -Dcom.sun.management.jmxremote.ssl=false
+ -Dcom.sun.management.jmxremote.port=9999
+ -Dkafka.logs.dir=/export/App/kafka_2.10-0.8.2.1/bin/../logs
+ -Dlog4j.configuration=file:bin/../config/log4j.properties
 
  -----------------kafka_2.10-0.8.2.1 ------------------
- -Xmx1G -Xms1G -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+DisableExplicitGC -Djava.awt.headless=true -Xloggc:/export/App/kafka_2.11-0.10.1.1/bin/../logs/kafkaServer-gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port=9999 -Dkafka.logs.dir=/export/App/kafka_2.11-0.10.1.1/bin/../logs -Dlog4j.configuration=file:bin/../config/log4j.properties
+ -Xmx1G
+ -Xms1G
+ -XX:+UseG1GC
+ -XX:MaxGCPauseMillis=20
+ -XX:InitiatingHeapOccupancyPercent=35
+ -XX:+DisableExplicitGC
+ -Djava.awt.headless=true
+ -Xloggc:/export/App/kafka_2.11-0.10.1.1/bin/../logs/kafkaServer-gc.log
+ -verbose:gc
+ -XX:+PrintGCDetails
+ -XX:+PrintGCDateStamps
+ -XX:+PrintGCTimeStamps
+ -Dcom.sun.management.jmxremote
+ -Dcom.sun.management.jmxremote.authenticate=false
+ -Dcom.sun.management.jmxremote.ssl=false
+ -Dcom.sun.management.jmxremote.port=9999
+ -Dkafka.logs.dir=/export/App/kafka_2.11-0.10.1.1/bin/../logs
+ -Dlog4j.configuration=file:bin/../config/log4j.properties
  -----------------es jvm ------------------
  使用ParNew+ConcurrentMarkSweep
  关于CMS， 参考：http://ifeve.com/useful-jvm-flags-part-7-cms-collector/

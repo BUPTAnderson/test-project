@@ -3,7 +3,7 @@ package org.training.concurrent2.chapter4;
 import java.util.List;
 
 public class ThreadLifeCycleObserver implements LifeCycleListener {
-    private final Object LOCK = new Object();
+    private final Object lock = new Object();
 
     public void concurrentQuery(List<String> ids) {
         if (null == ids || ids.isEmpty()) {
@@ -27,7 +27,7 @@ public class ThreadLifeCycleObserver implements LifeCycleListener {
 
     @Override
     public void onEvent(ObservableRunnable.RunnableEvent event) {
-        synchronized (LOCK) {
+        synchronized (lock) {
             System.out.println("Thread runnable [" + event.getThread().getName() + "] data changed and state is [" + event.getState() + "]");
             if (event.getCause() != null) {
                 System.out.println("The runnable [" + event.getThread().getName() + "] process failed.");

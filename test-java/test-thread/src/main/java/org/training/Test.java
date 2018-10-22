@@ -32,7 +32,7 @@ public class Test
                 test.set();
                 System.out.println(test.getLong());
                 System.out.println(test.getString());
-            };
+            }
         };
         thread1.start();
         thread1.join();

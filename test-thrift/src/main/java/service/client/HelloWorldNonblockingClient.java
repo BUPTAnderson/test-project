@@ -55,6 +55,5 @@ public class HelloWorldNonblockingClient
     public static void main(String[] args) {
         HelloWorldNonblockingClient client = new HelloWorldNonblockingClient();
         client.startClient("Michael");
-
     }
 }

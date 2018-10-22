@@ -10,7 +10,10 @@ import org.apache.thrift.transport.TNonblockingServerSocket;
 import service.demo.HelloWorldImpl;
 
 /**
+ * 链接：https://www.jianshu.com/p/10b7cf0a384e
  * Created by anderson on 17-6-9.
+ *
+ * TNonblockingServer是单线程非阻塞IO的方式，通过java.nio.channels.Selector的select()接收连接请求，但是处理消息仍然是单线程，吞吐量有限不可用于生产
  *
  * 使用非阻塞式IO，服务端和客户端需要指定 TFramedTransport 数据传输的方式。
  * 对应的client: HelloWorldNonblockingClient
@@ -29,7 +32,7 @@ public class HelloWorldNonblockingServer
         try {
             System.out.println("HelloWorld TNonblockingServer start ....");
 
-            TProcessor tprocessor = new HelloWorldService.Processor(new HelloWorldImpl());
+            TProcessor tprocessor = new HelloWorldService.Processor<HelloWorldService.Iface>(new HelloWorldImpl());
 
             TNonblockingServerSocket tnbSocketTransport = new TNonblockingServerSocket(
                     SERVER_PORT);
@@ -45,7 +48,6 @@ public class HelloWorldNonblockingServer
             // 使用非阻塞式IO，服务端和客户端需要指定TFramedTransport数据传输的方式
             TServer server = new TNonblockingServer(tnbArgs);
             server.serve();
-
         } catch (Exception e) {
             System.out.println("Server start error!!!");
             e.printStackTrace();

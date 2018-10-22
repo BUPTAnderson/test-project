@@ -8,14 +8,14 @@ import java.util.List;
 public class SimpleThreadPool extends Thread {
     private int size;
     private final int queueSize;
-    private final static int DEFAULT_TASK_QUEUE_SIZE = 2000;
+    private static final int DEFAULT_TASK_QUEUE_SIZE = 2000;
     private static volatile int seq = 0;
-    private final static String THREAD_PREFIX = "SIMPLE_THREAD_POOL";
-    private final static ThreadGroup GROUP = new ThreadGroup("Pool_Group");
-    private final static LinkedList<Runnable> TASK_QUEUE = new LinkedList<>();
-    private final static List<WorkerTask> THREAD_QUEUE = new ArrayList<>();
+    private static final String THREAD_PREFIX = "SIMPLE_THREAD_POOL";
+    private static final ThreadGroup GROUP = new ThreadGroup("Pool_Group");
+    private static final LinkedList<Runnable> TASK_QUEUE = new LinkedList<>();
+    private static final List<WorkerTask> THREAD_QUEUE = new ArrayList<>();
     private final DiscardPolicy discardPolicy;
-    private final static DiscardPolicy DEFAULT_DISCARD_POLICY = () -> {
+    private static final DiscardPolicy DEFAULT_DISCARD_POLICY = () -> {
         throw new DiscardException("Discard This Task.");
     };
     private volatile boolean destroy = false;

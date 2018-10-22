@@ -121,7 +121,7 @@ public class ServerHandle
                 int readBytes = sc.read(buffer);
                 //读取到字节，对字节进行编解码
                 if (readBytes > 0) {
-                    //将缓冲区当前的limit设置为position=0，用于后续对缓冲区的读取操作
+                    //将position设回0，并将limit设置成之前position的值。换句话说，position现在用于标记读的位置，limit表示之前写进了多少个byte，用于后续对缓冲区的读取操作
                     buffer.flip();
                     //根据缓冲区可读字节数创建字节数组
                     byte[] bytes = new byte[buffer.remaining()];

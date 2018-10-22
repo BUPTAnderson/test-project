@@ -17,6 +17,7 @@
         <module>test-design-pattern</module>
         <module>test-java-se</module>
         <module>test-algorithm</module>
+        <module>test-disruptor</module>
     </modules>
 
     <properties>

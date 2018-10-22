@@ -12,9 +12,9 @@ public class TestWait {
             synchronized (lock) {
                 try {
                     lock.wait();
-                    System.out.println(Thread.currentThread().getName() + " get lock"+ LocalDateTime.now());
+                    System.out.println(Thread.currentThread().getName() + " get lock" + LocalDateTime.now());
                     Thread.sleep(5_000L);
-                    System.out.println(Thread.currentThread().getName() + " to release lock"+ LocalDateTime.now());
+                    System.out.println(Thread.currentThread().getName() + " to release lock" + LocalDateTime.now());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -27,7 +27,7 @@ public class TestWait {
                     lock.wait();
                     System.out.println(Thread.currentThread().getName() + " get lock" + LocalDateTime.now());
                     Thread.sleep(5_000L);
-                    System.out.println(Thread.currentThread().getName() + " to release lock"+ LocalDateTime.now());
+                    System.out.println(Thread.currentThread().getName() + " to release lock" + LocalDateTime.now());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -38,9 +38,9 @@ public class TestWait {
             synchronized (lock) {
                 try {
                     lock.wait();
-                    System.out.println(Thread.currentThread().getName() + " get lock"+ LocalDateTime.now());
+                    System.out.println(Thread.currentThread().getName() + " get lock" + LocalDateTime.now());
                     Thread.sleep(5_000L);
-                    System.out.println(Thread.currentThread().getName() + " to release lock"+ LocalDateTime.now());
+                    System.out.println(Thread.currentThread().getName() + " to release lock" + LocalDateTime.now());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

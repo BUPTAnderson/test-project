@@ -22,6 +22,5 @@ public class MethodCallback implements AsyncMethodCallback {
     // 处理调用服务过程中出现的异常
     @Override
     public void onError(Exception e) {
-
     }
 }

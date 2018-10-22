@@ -10,7 +10,7 @@ public class SingletonObject3 {
     private SingletonObject3() {
     }
 
-    public synchronized static SingletonObject3 getInstance() {
+    public static synchronized SingletonObject3 getInstance() {
         if (null == instance) {
             instance = new SingletonObject3();
         }

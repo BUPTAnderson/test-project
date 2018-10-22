@@ -80,7 +80,6 @@ public class CoinChange {
      * @return
      */
     public int coinChange3(int[] coins, int amount) {
-
         int min = Integer.MAX_VALUE;
         if (amount < 0) {
             return -1;

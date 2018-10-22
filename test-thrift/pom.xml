@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <air.main.basedir>${project.parent.basedir}</air.main.basedir>
         <!-- 该module里面包含thrift编译生成的代码, 很多不符合我们的checkstyle, 这里对test-thrift module不再进行checkstyle -->
-        <air.check.skip-checkstyle>true</air.check.skip-checkstyle>
+        <air.check.skip-checkstyle>false</air.check.skip-checkstyle>
     </properties>
 
     <dependencies>
@@ -94,8 +94,11 @@
                             <skip>${air.check.skip-checkstyle}</skip>
                             <failOnViolation>${air.check.fail-checkstyle}</failOnViolation>
                             <consoleOutput>true</consoleOutput>
-                            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                            <includeTestSourceDirectory>false</includeTestSourceDirectory>
                             <configLocation>${air.main.basedir}/src/checkstyle/checks.xml</configLocation>
+                            <!--指定checkstyle的目录-->
+                            <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+                            <excludes></excludes>
                         </configuration>
                     </execution>
                 </executions>

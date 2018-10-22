@@ -10,6 +10,8 @@
     <module>test-jdbc</module>
     <module>test-java</module>
       <module>test-log4j</module>
+      <module>test-protobuf</module>
+      <module>test-netty</module>
   </modules>
   <packaging>pom</packaging>
 

@@ -27,7 +27,6 @@ public class ThreadInterrupt {
         Thread.sleep(10);
         System.out.println("t1->>" + t.isInterrupted());
 
-
         Thread t2 = new Thread(() -> {
             while (true) {
                 synchronized (MONITOR) {

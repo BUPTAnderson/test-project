@@ -1,7 +1,7 @@
 package org.training.concurrent2.chapter4;
 
 public abstract class ObservableRunnable implements Runnable {
-    final protected LifeCycleListener listener;
+    protected final LifeCycleListener listener;
 
     public ObservableRunnable(LifeCycleListener listener) {
         this.listener = listener;

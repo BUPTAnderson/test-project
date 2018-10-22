@@ -19,7 +19,7 @@ public class BackPack {
         if (index >= w.length) {
             return 0;
         }
-        return Math.max(search(index + 1, weight + w[index]) + v[index], search(index + 1, weight);
+        return Math.max(search(index + 1, weight + w[index]) + v[index], search(index + 1, weight));
     }
 
     /**
