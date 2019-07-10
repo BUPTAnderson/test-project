@@ -27,17 +27,11 @@ public class LRUCache {
     }
 
     public boolean remove(Integer key) {
-        if (map.containsKey(key)) {
-            map.remove(key);
             boolean result = linkList.remove(key);
             return result;
-        } else {
-            return true;
-        }
     }
 
     private void setHead(Integer key, String value) {
-            map.put(key, value);
             linkList.addFirst(key);
     }
 
@@ -49,8 +43,10 @@ public class LRUCache {
             }
         } else {
             if (map.size() >= capacity) {
+                map.remove(linkList.getLast());
                 remove(linkList.getLast());
             }
+            map.put(key, value);
             setHead(key, value);
         }
     }

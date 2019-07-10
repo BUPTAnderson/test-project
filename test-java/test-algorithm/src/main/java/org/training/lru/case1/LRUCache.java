@@ -40,8 +40,6 @@ public class LRUCache {
         }else{
             end = n.pre;
         }
-
-        map.remove(n.key);
     }
 
     public void setHead(Node n){

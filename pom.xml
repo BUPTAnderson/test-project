@@ -12,6 +12,8 @@
       <module>test-log4j</module>
       <module>test-protobuf</module>
       <module>test-netty</module>
+      <module>test-juice</module>
+      <module>test-antlr</module>
   </modules>
   <packaging>pom</packaging>
 
