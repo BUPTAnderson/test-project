@@ -22,7 +22,7 @@
         <!--grpc版本号-->
         <grpc.version>1.7.0</grpc.version>
         <!--protobuf 版本号-->
-        <protobuf.version>3.1.0</protobuf.version>
+        <protobuf.version>3.16.3</protobuf.version>
         <air.main.basedir>${project.parent.basedir}</air.main.basedir>
         <!-- 该module里面包含thrift编译生成的代码, 很多不符合我们的checkstyle, 这里对test-protobuf module不再进行checkstyle -->
         <air.check.skip-checkstyle>true</air.check.skip-checkstyle>
